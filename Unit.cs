@@ -44,6 +44,13 @@
         
         public void DoAction(Game game)
         {
+            //Если не хочется менять код внутри if'ов, то можно заменить this на нужный вам объект
+            var thisUnit = this;
+
+            var Team = thisUnit.Team;
+            var Position = thisUnit.Position;
+            ref var IsShielded = ref thisUnit.IsShielded;
+
             if (Strategy == Strategy.Melee)
             {
                 var nearestEnemy = game.FindNearest(Position, x => x.Team != Team);
@@ -82,7 +89,7 @@
                     }
 
                     if (!Equals(bestPosition, Position))
-                        game.MoveUnit(this, bestPosition);
+                        game.MoveUnit(thisUnit, bestPosition);
                 }
 
             }
@@ -115,7 +122,7 @@
                 }
 
                 if (!Equals(bestPosition, Position))
-                    game.MoveUnit(this, bestPosition);
+                    game.MoveUnit(thisUnit, bestPosition);
             }
             else if (Strategy == Strategy.Healing)
             {
@@ -154,7 +161,7 @@
                     }
 
                     if (!Equals(bestPosition, Position))
-                        game.MoveUnit(this, bestPosition);
+                        game.MoveUnit(thisUnit, bestPosition);
                 }
             }
             else if (Strategy == Strategy.Tank)
@@ -193,7 +200,7 @@
                     }
 
                     if (!Equals(bestPosition, Position))
-                       game.MoveUnit(this, bestPosition);
+                       game.MoveUnit(thisUnit, bestPosition);
                 }
             }
         }
